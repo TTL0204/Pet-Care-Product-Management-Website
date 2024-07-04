@@ -1,0 +1,122 @@
+﻿@model WebsiteThuCungBento.Models.DangNhapModel
+@{
+    ViewBag.Title = "Đăng Nhập - TL PET'S HOME";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div id="PageContainer" class="is-moved-by-drawer">
+    <main class="main-content" role="main">
+        <section id="page-wrapper">
+            <div class="wrapper">
+                <div class="inner">
+                    <div class="grid">
+                        <div class="grid__item large--one-third push--large--one-third text-center">
+                            <div class="note form-success" id="ResetSuccess" style="display:none;">
+                                Chúng tôi đã gửi một email với đường dẫn để giúp bạn cập nhật mật khẩu.
+                            </div>
+                            <div id="CustomerLoginForm" class="form-vertical">
+                                <form accept-charset="UTF-8" method="post">
+                                    <input name="form_type" type="hidden" value="customer_login">
+                                    <input name="utf8" type="hidden" value="✓">
+                                    <h1 style="font-size:35px;">Đăng nhập</h1>
+                                    <h4 style="color:red; text-align:center"> @ViewBag.ThongBao</h4>
+                                    @using (Html.BeginForm("DangNhap", "User", FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.ValidationSummary(true)
+                                        <div class="form-horizontal">
+                                            <div style="color:red;font-size:small;text-align:initial">
+                                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group" style="text-align:left;">
+                                                @Html.LabelFor(model => model.TenDN, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div style="color:red;font-size:small;text-align:initial">
+                                                    @Html.ValidationMessageFor(model => model.TenDN, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <input class="form-control text-box single-line input-full " data-val="true" data-val-required="Tên đăng nhập không được để trống." id="TenDN" name="TenDN" type="text" value="">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" style="text-align:left;">
+                                                @Html.LabelFor(model => model.MatKhau, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div style="color:red;font-size:small;text-align:initial">
+                                                    @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <input class="form-control text-box single-line input-full" data-val="true" data-val-length="Độ dài mật khẩu ít nhất 3 - 20 ký tự." data-val-length-max="20" data-val-length-min="3" data-val-required="Mật khẩu không được để trống." id="MatKhau" name="MatKhau" type="password" value="">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-offset-2 col-md-10">
+                                                    <input type="submit" value="Đăng nhập" class="btn btn--full" />
+                                                    <p><a href="@Url.Action("Index","User")">Trở về</a></p>
+                                                    <p><a href="@Url.Action("DangKy","User")">Đăng kí</a></p>
+                                                    <p><a href="@Url.Action("QuenMK","User")">Quên mật khẩu?</a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </form>
+                            </div>
+                            <div id="RecoverPasswordForm" style="display: none;">
+                                <h2>Cài đặt lại mật khẩu</h2>
+                                <p>Mật khẩu mới sẽ được gửi về email của bạn.</p>
+                                <div class="form-vertical">
+                                    <form accept-charset="UTF-8" action="/account/recover" method="post">
+                                        <input name="form_type" type="hidden" value="recover_customer_password">
+                                        <input name="utf8" type="hidden" value="✓">
+                                        <label for="RecoverEmail" class="hidden-label">Email</label>
+                                        <input type="email" value="" name="email" id="RecoverEmail" class="input-full" placeholder="Email" autocorrect="off" autocapitalize="off">
+                                        <p>
+                                            <input type="submit" class="btn btn--full" value="Gửi">
+                                        </p>
+                                        <button type="button" id="HideRecoverPasswordLink" class="text-link">Bỏ qua</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script language="javascript" src="~/Scripts/owlcarousel.js"></script>
+<script language="javascript" src="~/Scripts/hoverchangeimage.js"></script>
+<script language="javascript" src="~/Scripts/accordion.js"></script>
+<script language="javascript" src="~/Scripts/Owlcarousel.js"></script>
+<script language="javascript" src="~/Scripts/backtotop.js"></script>
+<script language="javascript" src="~/Scripts/triggerzoom.js"></script>
+<script language="javascript" src="~/Scripts/thuchien.js"></script>
+<script language="javascript" src="~/Scripts/quickview.js"></script>
+<script language="javascript" src="~/Scripts/ajax-cart5eef.js"></script>
+
+<script>
+    var modalAddComplete = document.getElementById('modalAddComplete');
+    var modalAddCompleteBtn = document.getElementById("modalAddCompleteBtn");
+
+    modalAddCompleteBtn.onclick = function () {
+        modalAddComplete.style.display = "block";
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modalAddComplete) {
+            modalAddComplete.style.display = "none";
+        }
+    }
+</script>
+
+<script>
+    if ($(window).width() > 768) {
+        setTimeout(function () {
+            $("#ProductThumbs .thumbnail-item:first-child a").trigger('click');
+        }, 10);
+    };
+</script>
+
+<script>
+    $(".hc-search-wrapper > a").click(function () {
+        $(".search-bar-header").toggle();
+    });
+</script>

@@ -1,0 +1,33 @@
+﻿@model WebsiteThuCungBento.Models.Hinh
+
+@{
+    ViewBag.Title = "Trang chi tiết";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>TRANG CHI TIẾT HÌNH</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            <label><strong>Tên Sản Phẩm:</strong></label><br />
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SanPham.TenSP)
+        </dd>
+
+        <dt>
+            <label><strong>Hình Ảnh:</strong></label><br />
+        </dt>
+
+        <dd>
+            <img src="@Url.Content("~/img/"+  Model.Hinh1)" width="120px" />
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Sửa", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Quay lại trang quản lý", "Index")
+</p>

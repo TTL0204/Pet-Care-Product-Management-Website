@@ -1,0 +1,200 @@
+﻿
+@{
+    ViewBag.Title = @Model.TenSP + " - TL PET'S HOME";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<!-- Tải script để kích hoạt chức năng zoom (triggerzoom.js) -->
+<script language="javascript" src="~/Scripts/triggerzoom.js"></script>
+
+<!-- Phần tiêu đề của trang (breadcrumb) -->
+<section id="breadcrumb-wrapper" class="breadcrumb-w-img">
+    <div class="breadcrumb-overlay"></div>
+    <div class="breadcrumb-content">
+        <div class="wrapper">
+            <div class="inner text-center">
+                <div class="breadcrumb-big">
+                    <h2>
+                        @Model.TenSP
+                    </h2>
+                </div>
+                <div class="breadcrumb-small">
+                    <a href="/" title="Quay trở về trang chủ">Trang chủ</a>
+                    <span aria-hidden="true">/</span>
+                    <span><a href="/User/sanpham">Sản phẩm</a></span>
+                    <span aria-hidden="true">/</span>
+                    <span>@Model.TenSP</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="PageContainer" class="is-moved-by-drawer">
+    <main class="main-content" role="main">
+        <section id="product-wrapper">
+            <div class="wrapper">
+                <div class="inner">
+                    <div itemscope="" itemtype="">
+                        <div class="grid product-single">
+                            <!-- Phần hiển thị ảnh sản phẩm và hình thu nhỏ -->
+                            <div class="grid__item large--six-twelfths medium--one-whole small--one-whole">
+                                <div class="customize-product-slider clearfix">
+                                    <div id="surround" class="clearfix">
+                                        <div class="product-images" id="ProductPhoto">
+                                            <!-- Hiển thị ảnh sản phẩm lớn và hình thu nhỏ -->
+                                            <a href="@Url.Content("~/img/" + @Model.HinhAnh)">
+                                                <img class="product-image-feature" src="@Url.Content("~/img/" + @Model.HinhAnh)" alt="@Model.TenSP" data-zoom-image="~/img/@Model.HinhAnh" height="443" width="443">
+                                            </a>
+                                            <div class="product-single__thumbnails inline-list">
+                                                <ul class="product-single__thumbnails inline-list" id="ProductThumbs" style="max-height: 295px;">
+                                                    <div class="inner">
+                                                        <!-- Hiển thị hình thu nhỏ của sản phẩm -->
+                                                        <img class="product-image-feature" src="@Url.Content("~/img/" + @Model.HinhAnh)" alt="@Model.TenSP" data-zoom-image="~/img/@Model.HinhAnh">
+                                                    </div>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Phần thông tin sản phẩm -->
+                            <div class="grid__item large--six-twelfths medium--one-whole small--one-whole">
+                                <div class="product-content">
+                                    <div class="pro-content-head clearfix">
+                                        <!-- Hiển thị tên sản phẩm -->
+                                        <h1 itemprop="name">@Model.TenSP</h1>
+                                        <div class="pro-brand">
+                                            <!-- Hiển thị thông tin về thương hiệu -->
+                                            <span class="title">Thương hiệu:</span> <a href="~/User/SPTheothuonghieu/@Model.MaTH" )>@Model.TenTH</a>
+                                        </div>
+                                        <span>|</span>
+                                        <div class="pro-type">
+                                            <!-- Hiển thị thông tin về loại sản phẩm -->
+                                            <span class="title">Loại: <a href="~/User/SPTheoloai/@Model.MaLoai">@Model.TenLoai</a></span>
+                                        </div>
+                                        <span>|</span>
+                                        <div class="pro-sku ProductSku">
+                                            <!-- Hiển thị mã sản phẩm -->
+                                            <span class="title">Mã SP:</span> <span class="sku-number">@Model.MaSP</span>
+                                        </div>
+                                        <span>|</span>
+                                        <div class="pro-sku ProductSku">
+                                            <!-- Hiển thị số lượng còn hàng -->
+                                            <span class="title"><br />Số lượng còn:</span> <span class="sku-number">@Model.SoLuong</span>
+                                        </div>
+                                        <br />
+                                        <br />
+                                        <strong style="color:#666;">Trạng thái:</strong>
+                                        <label style="color:#333;">
+                                            <!-- Kiểm tra và hiển thị trạng thái sản phẩm (Còn hàng hoặc Hết hàng) -->
+                                            @if (Model.SoLuong != 0)
+                                            {<label>Còn hàng</label>} @if (Model.SoLuong == 0)
+                                            {<label>Hết hàng</label>}
+                                        </label>
+                                    </div>
+                                    <div class="pro-price clearfix">
+                                        <!-- Hiển thị giá sản phẩm -->
+                                        <span class="current-price ProductPrice">@String.Format("{0:0,0}", @Model.DonGiaBan)₫</span>
+                                    </div>
+                                    <div class="pro-short-desc">
+                                        <!-- Hiển thị mô tả ngắn về sản phẩm -->
+                                        <p style="text-align:justify">@Model.MoTa</p>
+                                    </div>
+                                    <div class="product-variants-wrapper">
+                                        <div class="product-size-hotline">
+                                            <div class="product-hotline">
+                                                <i class="fa fa-mobile" aria-hidden="true"></i> Hotline hỗ trợ: <a href="tel:0367512498">0367512498</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid mg-left-5">
+                                        <br />
+                                        <div class="grid__item large--two-thirds medium--two-thirds small--one-whole pd-left5">
+                                            <div class="product-actions clearfix">
+                                                <!-- Kiểm tra số lượng sản phẩm và hiển thị nút "Thêm vào giỏ hàng" hoặc "Tạm hết hàng" -->
+                                                @if (Model.SoLuong != 0)
+                                                {
+                                                    <a href="@Url.Action("ThemGioHang", "GioHang", new { @iMaSP= @Model.MaSP, @strURL=Request.Url.ToString() })" class="list-group-item btn-buy-now" style="background: #e35450; border: 1px solid #000000; color: #fff; padding: 5px 15px; font-size: 20px;">THÊM GIỎ HÀNG</a>
+                                                }
+                                                @if (Model.SoLuong == 0)
+                                                {
+                                                    <a href="#" class="list-group-item btn-buy-now" style="background: #2d485a; border: 1px solid #000000; color: #fff; padding: 5px 15px; font-size: 20px;">TẠM HẾT HÀNG</a>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Phần mô tả sản phẩm và thông tin chi tiết -->
+                        <div class="grid">
+                            <div class="grid__item large--nine-twelfths medium--one-whole small--one-whole">
+                                <div class="product-description-wrapper">
+                                    <div class="tab clearfix">
+                                        <!-- Chọn tab "Thông tin sản phẩm" mặc định khi trang được tải -->
+                                        <button class="pro-tablinks active" onclick="openProTabs(event, 'protab1')" id="defaultOpenProTabs">Thông tin sản phẩm</button>
+                                    </div>
+                                    <div id="protab3" class="pro-tabcontent" style="display: block;">
+                                        <p></p><h2>@Model.TenSP</h2><p>@Model.MoTa</p><p>
+                                            <span class="wysiwyg-font-size-medium">
+                                                <strong><span>1. Hình ảnh sản phẩm</span></strong>
+                                            </span>
+                                        </p><p> <img class="product-image-feature" src="@Url.Content("~/img/" + @Model.HinhAnh)" alt="@Model.TenSP" data-zoom-image="~/img/@Model.HinhAnh"></p><p>
+                                            <span class="wysiwyg-font-size-medium">
+                                                <strong> 2. HƯỚNG DẪN SỬ DỤNG: </strong>
+                                            </span>
+                                        </p><p>@Html.Action("HinhAnh", new { id = Model.MaSP })</p><p><span class="wysiwyg-font-size-medium"></span><span class="wysiwyg-font-size-medium"></span></p>
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+<div id="modalAddComplete"></div>
+<button type="button" id="modalAddCompleteBtn" style="display: none;"></button>
+
+<script language="javascript" src="~/Scripts/hoverchangeimage.js"></script>
+<script language="javascript" src="~/Scripts/accordion.js"></script>
+<script language="javascript" src="~/Scripts/Owlcarousel.js"></script>
+<script language="javascript" src="~/Scripts/backtotop.js"></script>
+<script language="javascript" src="~/Scripts/triggerzoom.js"></script>
+<script language="javascript" src="~/Scripts/thuchien.js"></script>
+<script language="javascript" src="~/Scripts/quickview.js"></script>
+<script language="javascript" src="~/Scripts/option_selection.js"></script>
+<script language="javascript" src="~/Scripts/ajax-cart5eef.js"></script>
+
+<script>
+    var modalAddComplete = document.getElementById('modalAddComplete');
+    var modalAddCompleteBtn = document.getElementById("modalAddCompleteBtn");
+
+    modalAddCompleteBtn.onclick = function () {
+        modalAddComplete.style.display = "block";
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modalAddComplete) {
+            modalAddComplete.style.display = "none";
+        }
+    }
+</script>
+
+<script>
+    if ($(window).width() > 768) {
+        setTimeout(function () {
+            $("#ProductThumbs .thumbnail-item:first-child a").trigger('click');
+        }, 10);
+    };
+</script>
+
+<script>
+    $(".hc-search-wrapper > a").click(function () {
+        $(".search-bar-header").toggle();
+    });
+</script>

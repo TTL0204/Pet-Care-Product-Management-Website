@@ -1,0 +1,32 @@
+﻿@using WebsiteThuCungBento.Models
+@{
+    ViewBag.Title = "Xác nhận đơn hàng - TL PET'S HOME";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div id="PageContainer" class="is-moved-by-drawer">
+    <main class="main-content" role="main">
+        <section id="page-wrapper">
+            <div class="wrapper">
+                <div class="inner">
+                    <div class="grid">
+                        <hr />
+                        <br />
+                        <h1>Đơn hàng của quý khách đã được chúng tôi ghi nhận. Chúng tôi sẽ liên hệ <br /> quý khách trong vòng 24H để xác nhận đơn hàng. <br /> Cảm ơn quý khách đã tin tưởng đặt hàng. ^^</h1>
+                        <div class="grid__item large--one-third push--large--one-third text-center">
+                            <a> <b>Liên hệ để được hỗ trợ:</b> <br /></a>
+                            <a href="https://www.facebook.com/profile.php?id=100073605564997&mibextid=ZbWKwL" class="fb-icon"><i class="fa fa-facebook" aria-hidden="true"></i> Facebook</a>
+                            <a href="https://www.facebook.com/profile.php?id=100073605564997&mibextid=ZbWKwL" class="mess-icon"><i class="fab fa-facebook-messenger" aria-hidden="true"></i> Messenger</a>
+                            <a <i class="fab fa-telegram" aria-hidden="true"></i> 0367512498</a>
+                            <hr />
+                            <a>
+                                <u>@Html.ActionLink("Trở lại trang chủ", "Index", "User")</u>
+                            </a>
+                        </div>
+                        <hr />
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>

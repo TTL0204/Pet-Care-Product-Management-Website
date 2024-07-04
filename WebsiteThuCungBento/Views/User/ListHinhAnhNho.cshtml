@@ -1,0 +1,9 @@
+﻿
+@foreach (var item in Model)
+{
+    <li class="thumbnail-item" data-alt="">
+        <a href="@Url.Content("~/img/" + @item.Hinh1)" class="product-single__thumbnail active">
+            <img src="@Url.Content("~/img/" + @item.Hinh1)">
+        </a>
+    </li>
+}

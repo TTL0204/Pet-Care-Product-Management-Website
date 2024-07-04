@@ -1,0 +1,73 @@
+﻿@model IEnumerable<WebsiteThuCungBento.Models.NhanVien>
+
+@{
+    ViewBag.Title = "Trang quản lý Admin";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>TRANG QUẢN LÝ ADMIN</h2>
+
+<h5 style="width:100%; padding-top:20px">
+    <u>
+        <img style="margin-left:25px" src="~/img/icons/add.png" />
+        @Html.ActionLink("THÊM TÀI KHOẢN QUẢN TRỊ", "Create")
+    </u>
+</h5>
+
+<table class="table">
+    <tr>
+        <th>
+            Họ tên
+        </th>
+        <th>
+            Địa chỉ
+        </th>
+        <th>
+            Số điện thoại
+        </th>
+        <th>
+            Loại tài khoản
+        </th>
+        <th>
+            Tên đăng nhập
+        </th>
+        <th>
+            Hình ảnh
+        </th>
+        <th>
+            Email
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoTen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiaChi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SDT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenLoai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenDN)
+            </td>
+            <td>
+                <img src="@Url.Content("~/img/" + item.Avatar)" height="100" width="100" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.ActionLink("Sửa", "Edit", new { id = item.MaNV }) |
+                @Html.ActionLink("Xóa", "Delete", new { id = item.MaNV })
+            </td>
+        </tr>
+    }
+</table>

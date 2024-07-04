@@ -1,0 +1,124 @@
+﻿
+@{
+    ViewBag.Title = "Thông Tin Cá Nhân - TL PET'S HOME";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+
+    var kh = Session["TaiKhoan"] as WebsiteThuCungBento.Models.KhachHang;
+}
+<script language="javascript" src="~/Scripts/backtotop.js"></script>
+<script language="javascript" src="~/Scripts/owlcarousel.js"></script>
+<script language="javascript" src="~/Scripts/accordion.js"></script>
+
+<section id="breadcrumb-wrapper3" class="breadcrumb-w-img">
+    <div class="breadcrumb-overlay"></div>
+    <div class="breadcrumb-content">
+        <div class="wrapper">
+            <div class="inner text-center">
+                <div class="breadcrumb-big">
+                    <h2>
+                        Tài khoản
+                    </h2>
+                </div>
+                <div class="breadcrumb-small">
+                    <a href="@Url.Action("Index","User")" title="Quay trở về trang chủ">Trang chủ</a>
+                    <span aria-hidden="true">/</span>
+                    <span>Thông Tin Cá Nhân</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div id="PageContainer" class="is-moved-by-drawer">
+    <main class="main-content" role="main">
+        <section id="page-wrapper">
+            <div class="wrapper">
+                <div class="inner">
+                    <h1>Thông tin cá nhân</h1>
+                    <div class="grid">
+                        <div class="grid__item two-thirds medium-down--one-whole">
+                            <br />
+                            <br />
+                            <ul>
+                                <img src="@Url.Content("~/img/" + @kh.HinhAnh)" alt="" width="130" height="130">
+                                <li>
+                                    Tên khách hàng: @kh.HoTen
+                                </li>
+                                <li>
+                                    Tên đăng nhập: @kh.TenDN
+                                </li>
+                                <li>
+                                    Ngày sinh : @string.Format("{0:dd/MM/yyyy}", @kh.NgaySinh)
+                                </li>
+                                <li>
+                                    Địa Chỉ: @kh.DiaChi
+                                </li>
+                                <li>
+                                    Số điện thoại: @kh.SDT
+                                </li>
+                                <li>
+                                    Email: @kh.Email
+                                </li>
+                            </ul>
+                            <a href="@Url.Action("Edit","User",new {id = kh.MaKH })">
+                                <h7>Sửa Thông Tin Cá Nhân</h7>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+<div id="modalAddComplete"></div>
+<button type="button" id="modalAddCompleteBtn" style="display: none;"></button>
+<script language="javascript" src="~/Scripts/ajax-cart5eef.js"></script>
+<script language="javascript" src="~/Scripts/hoverchangeimage.js"></script>
+<script language="javascript" src="~/Scripts/accordion.js"></script>
+<script language="javascript" src="~/Scripts/Owlcarousel.js"></script>
+<script language="javascript" src="~/Scripts/backtotop.js"></script>
+<script language="javascript" src="~/Scripts/triggerzoom.js"></script>
+<script language="javascript" src="~/Scripts/thuchien.js"></script>
+<script language="javascript" src="~/Scripts/quickview.js"></script>
+
+<script>
+    var modalAddComplete = document.getElementById('modalAddComplete');
+    var modalAddCompleteBtn = document.getElementById("modalAddCompleteBtn");
+
+    modalAddCompleteBtn.onclick = function () {
+        modalAddComplete.style.display = "block";
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modalAddComplete) {
+            modalAddComplete.style.display = "none";
+        }
+    }
+</script>
+
+<script>
+    if ($(window).width() > 768) {
+        setTimeout(function () {
+            $("#ProductThumbs .thumbnail-item:first-child a").trigger('click');
+        }, 10);
+    };
+</script>
+
+<script>
+    $(document).ready(function () {
+        var date = new Date();
+        var minutes = 60;
+        date.setTime(date.getTime() + (minutes * 60 * 1000));
+
+        if (getCookie('popupNewLetterStatus') != 'closed') {
+            $('#popup-btn').trigger('click');
+            setCookie('popupNewLetterStatus', 'closed', date);
+        };
+    })
+</script>
+
+<script>
+    $(".hc-search-wrapper > a").click(function () {
+        $(".search-bar-header").toggle();
+    });
+</script>

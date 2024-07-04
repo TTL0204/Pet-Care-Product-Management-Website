@@ -1,0 +1,390 @@
+﻿
+@{
+    ViewBag.Title = "Thống kê - TL PET'S HOME";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    .gaussian-background {
+        background: url('/img/bg_gaussian.jpg') center center fixed;
+        background-size: cover;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .row.text-center.border-top {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+</style>
+
+<div class="container-fluid gaussian-background">
+    <div class="card">
+        <div class="card-content">
+            <div class="row" style="display: flex; justify-content: space-between; margin: 0; padding: 0;">
+                <div class="border-light" style="text-align: center; flex: 1;">
+                    <div class="card-body">
+                        <p class="text-white small-font">Tổng Đơn Hàng<span class="float-right">+4.2%</span></p>
+                        <h5 class="text-white">@ViewBag.TongDonHang <span class="float-right"><i class="fa fa-shopping-cart"></i></span></h5>
+                    </div>
+                </div>
+                <div class="border-light" style="text-align: center; flex: 1;">
+                    <div class="card-body">
+                        <p class="text-white small-font">Tổng Doanh Thu<span class="float-right">+1.2%</span></p>
+                        <h5 class="text-white">@String.Format("{0:#,##0 đ}", ViewBag.TongDoanhThu) <span class="float-right"><i class="fa fa-usd"></i></span></h5>
+                    </div>
+                </div>
+                <div class="border-light" style="text-align: center; flex: 1;">
+                    <div class="card-body">
+                        <p class="text-white small-font">Khách Hàng <span class="float-right">+5.2%</span></p>
+                        <h5 class="text-white">@ViewBag.TongKhachHang <span class="float-right"><i class="fa fa-eye"></i></span></h5>
+                    </div>
+                </div>
+                <div class="border-light" style="text-align: center; flex: 1;">
+                    <div class="card-body">
+                        <p class="text-white small-font">Sản phẩm hiện có <span class="float-right">+2.2%</span></p>
+                        <h5 class="text-white">@ViewBag.TongSanPham <span class="float-right"><i class="fa fa-envira"></i></span></h5>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="display: flex; justify-content: space-between; margin: 0; padding: 0;">
+                <div class="border-light" style="text-align: center; flex: 1;">
+                    <form id="myForm" action="/ThongKe/Index" method="get" class="form-inline">
+                        <div class="form-group">
+                            <select class="form-control" name="maNV" id="nhanVienDropdown" style="background-color: transparent; color: #000; width: 200px;">
+                                <option value="">Chọn nhân viên</option>
+                                @foreach (var nv in ViewBag.DSNV)
+                                {
+                                    if (nv.TenLoai != "Admin")
+                                    {
+                                        <option value="@nv.MaNV">@nv.HoTen</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </form>
+                    <div class="card-body">
+                        <p class="text-white small-font">Doanh Thu Nhân Viên <span class="float-right">+3.2%</span></p>
+                        <h5 id="doanhThuNhanVien" class="text-white">@String.Format("{0:#,##0 đ}", ViewBag.DoanhThuNhanVien ?? 0) <span class="float-right"><i class="fa fa-money"></i></span></h5>
+                    </div>
+                </div>
+                <div class="border-light" style="text-align: center; flex: 1;">
+                    <form id="myForm" action="/ThongKe/Index" method="get" class="form-inline">
+                        <div class="form-group">
+                            <select class="form-control" name="thang" id="thangDropdown" style="background-color: transparent; color: #000; width: 100px;">
+                                <option value="">Chọn tháng</option>
+                                @for (int i = 1; i <= 12; i++)
+                                {
+                                    <option value="@i">@i</option>
+                                }
+                            </select>
+                            <select class="form-control" name="nam" id="namDropdown" style="background-color: transparent; color: #000; width: 100px;">
+                                <option value="">Chọn năm</option>
+                                @for (int i = DateTime.Now.Year; i >= 2000; i--)
+                                {
+                                    <option value="@i">@i</option>
+                                }
+                            </select>
+                        </div>
+                    </form>
+                    <div class="card-body">
+                        <p class="text-white small-font">Doanh Thu Theo Tháng <span class="float-right">+3.2%</span></p>
+                        <h5 id="doanhThuThang" class="text-white">@String.Format("{0:#,##0 đ}", ViewBag.DoanhThuThang ?? 0) <span class="float-right"><i class="fa fa-money"></i></span></h5>
+                    </div>
+                </div>
+                <div class="border-light" style="text-align: center; flex: 1;">
+                    <form id="myForm" action="/ThongKe/Index" method="get" class="form-inline">
+                        <div class="form-group">
+                            <select class="form-control" name="maSP" id="matHangDropdown" style="background-color: transparent; color: #000; width: 200px;">
+                                <option value="">Chọn mặt hàng</option>
+                                @foreach (var sp in ViewBag.DSMH)
+                                {
+                                    <option value="@sp.MaSP">@sp.TenSP</option>
+                                }
+                            </select>
+                        </div>
+                    </form>
+                    <div class="card-body">
+                        <p class="text-white small-font">Doanh Thu Mặt Hàng <span class="float-right">+3.2%</span></p>
+                        <h5 id="doanhThuMatHang" class="text-white">@String.Format("{0:#,##0 đ}", ViewBag.DoanhThuMatHang ?? 0) <span class="float-right"><i class="fa fa-money"></i></span></h5>
+                    </div>
+                </div>
+                <div class="border-light" style="text-align: center; flex: 1;">
+                    <form id="myForm" action="/ThongKe/Index" method="get" class="form-inline">
+                        <div class="form-group">
+                            <select class="form-control" name="maLoai" id="loaiHangDropdown" style="background-color: transparent; color: #000; width: 200px;">
+                                <option value="">Chọn loại hàng</option>
+                                @foreach (var loai in ViewBag.DSLoai)
+                                {
+                                    <option value="@loai.MaLoai">@loai.TenLoai</option>
+                                }
+                            </select>
+                        </div>
+                    </form>
+                    <div class="card-body">
+                        <p class="text-white small-font">Doanh Thu Loại Hàng <span class="float-right">+3.2%</span></p>
+                        <h5 id="doanhThuLoaiHang" class="text-white">@String.Format("{0:#,##0 đ}", ViewBag.DoanhThuLoaiHang ?? 0) <span class="float-right"><i class="fa fa-money"></i></span></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header" style="margin-left:40px;">
+                    Lưu lượng truy cập
+                </div>
+                <div class="card-body" style="margin-left:10px;">
+                    <div class="chart-container-1">
+                        <canvas id="chart1"></canvas>
+                    </div>
+                </div>
+                <div class="row text-center border-top">
+                    <div class="col-md-4">
+                        <div class="p-3">
+                            <h5 class="">45.87M</h5>
+                            <small class="">Tổng lưu lượng <span> <i class="fa fa-arrow-up"></i> 2.43%</span></small>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3">
+                            <h5 class="">15:48</h5>
+                            <small class="">Thời gian trung bình <span> <i class="fa fa-arrow-up"></i> 12.65%</span></small>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3">
+                            <h5 class="">245.65</h5>
+                            <small class="">Truy cập Page <span> <i class="fa fa-arrow-up"></i> 5.62%</span></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header" style="margin-left:40px;">
+                    Sản phẩm bán chạy
+                </div>
+                <div class="card-body" style="display:flex;">
+                    <div class="chart-container-2" style="flex: 1;">
+                        <canvas id="chart2"></canvas>
+                    </div>
+                    <div class="table-responsive" style="flex: 1; display: flex; align-items: center;">
+                        <table class="table align-items-center">
+                            <tbody>
+                                @foreach (var item in ViewBag.SPBanChay)
+                                {
+                                    <tr>
+                                        <td><i class="fa fa-circle text-white mr-2" style="color:white; margin-right: 5px;"></i>@item.TenSP</td>
+                                        <td>@item.SoLuongDaBan đã bán</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-lg-12">
+            <div class="card">
+                <div class="card-header" style="margin-left:40px;">
+                    Đơn Hàng Mới Đang Chờ Xử Lý
+                </div>
+                <div class="table-responsive" style="margin-left:40px;">
+                    <table class="table align-items-center table-flush table-borderless">
+                        <thead>
+                            <tr>
+                                <th>Mã đơn hàng</th>
+                                <th>Tên khách</th>
+                                <th>Ngày đặt</th>
+                                <th>Địa chỉ</th>
+                                <th>Giá trị đơn hàng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var donHang in ViewBag.DSDonHang)
+                            {
+                                <tr>
+                                    <td>@donHang.MaDH</td>
+                                    <td>@donHang.HoTen</td>
+                                    <td>@donHang.NgayGiao.ToString("dd/MM/yyyy")</td>
+                                    <td>@donHang.DiaChi</td>
+                                    <td>@donHang.TongTien.ToString("N0")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#nhanVienDropdown').change(function () {
+            var maNV = $(this).val();
+            $.ajax({
+                url: '/ThongKe/GetDoanhThuNhanVien',
+                type: 'GET',
+                data: { maNV: maNV },
+                success: function (data) {
+                    $('#doanhThuNhanVien').html(data);
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $('#thangDropdown, #namDropdown').change(function () {
+            var thang = $('#thangDropdown').val();
+            var nam = $('#namDropdown').val();
+            $.ajax({
+                url: '/ThongKe/GetDoanhThuThang',
+                type: 'GET',
+                data: { thang: thang, nam: nam },
+                success: function (data) {
+                    $('#doanhThuThang').html(data);
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $('#matHangDropdown').change(function () {
+            var maSP = $(this).val();
+            $.ajax({
+                url: '/ThongKe/GetDoanhThuMatHang',
+                type: 'GET',
+                data: { maSP: maSP },
+                success: function (data) {
+                    $('#doanhThuMatHang').html(data);
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $('#loaiHangDropdown').change(function () {
+            var maLoai = $(this).val();
+            $.ajax({
+                url: '/ThongKe/GetDoanhThuLoaiHang',
+                type: 'GET',
+                data: { maLoai: maLoai },
+                success: function (data) {
+                    $('#doanhThuLoaiHang').html(data);
+                }
+            });
+        });
+    });
+</script>
+
+<script>
+    $(function () {
+        "use strict";
+        // chart 1
+        var ctx1 = document.getElementById('chart1').getContext('2d');
+
+        var myChart1 = new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"],
+                datasets: [{
+                    label: 'New Visitor',
+                    data: [3, 3, 8, 5, 7, 4, 6, 4, 6, 3],
+                    backgroundColor: '#fff',
+                    borderColor: "transparent",
+                    pointRadius: "0",
+                    borderWidth: 3,
+                }, {
+                    label: 'Old Visitor',
+                    data: [7, 5, 14, 7, 12, 6, 10, 6, 11, 5],
+                    backgroundColor: "rgba(255, 255, 255, 0.25)",
+                    borderColor: "transparent",
+                    pointRadius: "0",
+                    borderWidth: 1,
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                legend: {
+                    display: true,
+                    labels: {
+                        fontColor: '#ddd',
+                        boxWidth: 40
+                    }
+                },
+                tooltips: {
+                    displayColors: false
+                },
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            fontColor: '#000'
+                        },
+                        gridLines: {
+                            display: true,
+                            color: "rgba(0, 0, 0, 0.08)"
+                        },
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            fontColor: '#000'
+                        },
+                        gridLines: {
+                            display: true,
+                            color: "rgba(0, 0, 0, 0.08)"
+                        },
+                    }]
+                }
+
+            }
+        });
+
+
+        // chart 2
+        var ctx2 = document.getElementById("chart2").getContext('2d');
+        var myChart2 = new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+                labels: [@Html.Raw(ViewBag.Labels)],
+                datasets: [{
+                    backgroundColor: [
+                        "#ffffff",
+                        "rgba(255, 255, 255, 0.70)",
+                        "rgba(255, 255, 255, 0.50)",
+                        "rgba(255, 255, 255, 0.20)"
+                    ],
+                    data: [@Html.Raw(ViewBag.Data)],
+                    borderWidth: [0, 0, 0, 0]
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                legend: {
+                    position: "bottom",
+                    display: false,
+                    labels: {
+                        fontColor: '#ddd',
+                        boxWidth: 15
+                    }
+                }
+                ,
+                tooltips: {
+                    displayColors: false
+                }
+            }
+        });
+    });
+</script>

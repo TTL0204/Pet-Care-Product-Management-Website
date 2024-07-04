@@ -1,0 +1,25 @@
+﻿@model WebsiteThuCungBento.Models.MauSac
+
+@{
+    ViewBag.Title = "Trang chi tiết";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>TRANG CHI TIẾT MÀU SẮC</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tên màu sắc:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenMauSac)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.MaMauSac }) |
+    @Html.ActionLink("Quay lại trang quản lý", "Index")
+</p>
